@@ -7,10 +7,9 @@ CLEAR	=	\033[0m
 
 CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 CC = cc
-AR = ar -crs
 RM = rm -f
 
-LIBFTA = libft_ext/libft.a
+LIBFTA = libft/libft.a
 
 SRCS = $(addprefix ./src/, push_swap.c)
 
@@ -21,7 +20,7 @@ all : $(NAME)
 bonus : $(NAME_BONUS)
 
 $(NAME) : $(OBJS)
-	@make all -sC ./libft_ext
+	@make all -sC ./libft
 	@echo "$(GREEN)Compiling Libft.$(CLEAR)"
 	@$(CC) $(CFLAGS) $(OBJS) -I ../push_swap.h $(LIBFTA) -o $(NAME)
 	@echo "$(GREEN)Push Swap Compiled.$(CLEAR)"
@@ -29,7 +28,7 @@ $(NAME) : $(OBJS)
 clean:
 	@$(RM) $(OBJS)
 	@$(RM) $(OBJS_BONUS)
-	@make clean -sC libft_ext
+	@make clean -sC libft
 	@echo "$(RED)All Objs Deleted.$(CLEAR)"
 
 fclean: clean

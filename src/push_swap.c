@@ -6,20 +6,20 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/12 20:37:00 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:54:24 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft_ext/src/ft_bzero.c"
-#include "../libft_ext/src/ft_calloc.c"
-#include "../libft_ext/src/ft_isdigit.c"
-#include "../libft_ext/src/ft_memset.c"
-#include "../libft_ext/src/ft_putstr_fd.c"
-#include "../libft_ext/src/ft_split.c"
-#include "../libft_ext/src/ft_strdup.c"
-#include "../libft_ext/src/ft_strlen.c"
-#include "../libft_ext/src/ft_substr.c"
-#include "../libft_ext/additional/free_matrix.c"
+#include "../libft/lib/ft_bzero.c"
+#include "../libft/lib/ft_calloc.c"
+#include "../libft/lib/ft_isdigit.c"
+#include "../libft/lib/ft_memset.c"
+#include "../libft/lib/ft_putstr_fd.c"
+#include "../libft/lib/ft_split.c"
+#include "../libft/lib/ft_strdup.c"
+#include "../libft/lib/ft_strlen.c"
+#include "../libft/lib/ft_substr.c"
+#include "../libft/additional/free_matrix.c"
 #include "./includes/push_swap.h"
 
 void	ft_leaks(void)
@@ -35,16 +35,17 @@ void	show_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	free_lst(t_lst *stack)
+void	free_lst(t_stack **stack)
 {
-	t_lst	*aux;
+	t_stack	*aux;
 
-	while (stack)
+	while (*stack)
 	{
-		aux = stack->next;
-		free(stack);
-		stack = aux;
+		aux = (*stack)->next;
+		free((*stack));
+		*stack = aux;
 	}
+	free(stack);
 }
 
 
@@ -63,14 +64,19 @@ void	free_lst(t_lst *stack)
 
 
 
-
-
-
-t_lst	*new_node(int id, long num)
+t_stack	*lst_last(t_stack *lst)
 {
-	t_lst	*list;
+	while (lst && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
 
-	list = malloc(sizeof(t_list));
+
+t_stack	*new_node(int id, long num)
+{
+	t_stack	*list;
+
+	list = ft_calloc(1, sizeof(t_stack));
 	if (!list)
 		return (NULL);
 	list->id = id;
@@ -80,33 +86,36 @@ t_lst	*new_node(int id, long num)
 	return (list);
 }
 
-void	add_node_back(t_lst **stack, t_lst *new)
+void	add_node_back(t_stack **stack, t_stack *new)
 {
-	t_lst	*aux;
+	t_stack	*aux;
 
-	aux = *stack;
+	aux = lst_last(*stack);
 	if (*stack != NULL)
 	{
-		*stack = new;
-		return; 
+		printf("ENTRA\n");
+		new->prev = aux;
+		new->next = NULL;
+		aux->next = new;
 	}
-	while (aux->next != NULL)
-		aux = aux->next;
-	aux->next = new;
-	new->prev = aux;
-	new->next = NULL;
+	else
+		*stack = new;
 }
 
 
-void	show_lst(t_lst **stack)
+void	show_lst(t_stack **stack)
 {
-	t_lst *aux;
-	
+	t_stack	*aux;
+
 	aux = *stack;
 	while (aux != NULL)
 	{
+		if (aux->prev)
+			printf("num prev[%d] --> [%ld]\n", aux->prev->id ,aux->prev->num);
 		printf("num node[%d] --> [%ld]\n", aux->id ,aux->num);
-		printf("node --> [%p]\n\n", aux);
+		printf("node stack--> [%p]\n", *stack);
+		printf("node prev--> [%p]\n", aux->prev);
+		printf("node next--> [%p]\n\n", aux->next);
 		aux = aux->next;
 	}
 }
@@ -126,106 +135,94 @@ long	ft_atol_ps(char *str)
 
 	n = 0;
 	i = 0;
-	sign = 0;
+	sign = 1;
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')
 		{
 			if (str[i] == '-')
-				sign++;
+				sign = -1;
 			i++;
 		}
 		if (!ft_isdigit(str[i]))
 			show_error(ERROR_ARGUMENT_NON_DIGIT);
 		n = (n * 10) + (str[i++] - '0');
 	}
-	if (sign)
-		n *= -1;
+	n *= sign;
+	if (INT_MIN >= n || n >= INT_MAX)
+		show_error(ERROR_ARGUMENT_NON_VALID);
 	return (n);
 }
 
-void	check_arguments(char *av[], t_lst **stack_a)
+void	check_arguments(char *av[], t_stack **stack_a)
 {
 	int		i;
+	int		j;
+	int		index;
 	char	**numbers;
 	long	num;
 
 	i = 0;
 	num = 0;
+	index = 1;
 	while (av[++i])
 	{
 		numbers = ft_split(av[i], ' ');
 		if (!numbers[1])
-		{
-			num = ft_atol_ps(av[i]);
-			if (INT_MIN >= num || num <= INT_MAX)
-			{
-				printf("list num node[] --> [%ld]\n", num);
-				add_node_back(stack_a, new_node(0, num));
-				
-			
-				
-				// printf("INDEX: %d", stack_a->id);
-				// printf("NUMERO STACK: %ld\n\n", stack_a->num);
-				// printf("AQUI\n");
-				// printf("DIRECCION DEL STACK NULL: %p\n", stack_a);
-				// ft_lstadd_back((t_list **)stack_a, ft_lstnew(stack_a->content));
-				// printf("NUMBER STRUCT: %s\n\n", stack_a);
-				
-			}
-			else
-				show_error(ERROR_ARGUMENT_NON_VALID);
-		}
+			add_node_back(stack_a, new_node(index++, ft_atol_ps(av[i])));
 		else
 		{
-			// FUNCION PARA GESTIONAR UN STRING DE NUMEROS
-			
+			j = 0;
+			while(numbers[j])
+			{
+				num = ft_atol_ps(numbers[j]);
+				add_node_back(stack_a, new_node(index++, num));
+				j++;
+			}
 		}
-		// show_lst(stack_a);
 		free_matrix(numbers);
 	}
+	show_lst(stack_a);
 }
 
 int	main(int ac, char *av[])
 {
-	t_lst *stack_a;
-	t_lst *stack_b;
+	t_stack **stack_a;
+	t_stack **stack_b;
 
-	// stack_a = ft_calloc(1, sizeof(t_lst));
-	// stack_b = ft_calloc(1, sizeof(t_lst));
-	stack_a = NULL;
-	stack_b = NULL;
+	stack_a = ft_calloc(1, sizeof(t_stack *));
+	stack_b = ft_calloc(1, sizeof(t_stack *));
 
 	atexit(ft_leaks);
 
 	// ac = 15;
-	// av[0] = "7";
 	// av[1] = "87";
 	// av[2] = "6";
-	// av[3] = "68";
+ 	// av[3] = "68";
 	// av[4] = "45";
-	// av[5] = "63";
-	// av[6] = "84";
-	// av[7] = "36";
-	// av[8] = "54";
-	// av[9] = "65";
-	// av[10] = "77";
-	// av[11] = "95";
-	// av[12] = "23";
-	// av[13] = "98";
-	// av[14] = "83";
-	// av[15] = "59";
-	// av[16] = "80";
-	// av[17] = "71";
-	// av[18] = "48";
-	// av[19] = "11";
-	// av[20] = "25";
+/*	av[5] = "63";
+	av[6] = "84";
+	av[7] = "36";
+	av[8] = "54";
+	av[9] = "65";
+	av[10] = "77";
+	av[11] = "95";
+	av[12] = "23";
+	av[13] = "98";
+	av[14] = "83";
+	av[15] = "59";
+	av[16] = "80";
+	av[17] = "71";
+	av[18] = "48";
+	av[19] = "11";
+	av[20] = "25"; */
 	if (ac > 1)
 	{
-		check_arguments(av, &stack_a);
+		check_arguments(av, stack_a);
         
+		printf("node stack--> [%p]\n", stack_a);
 		free_lst(stack_a);
-		// free_lst(stack_b);
+		free_lst(stack_b);
 	}
 	else
 		show_error(ERROR_ARGUMENTS);
