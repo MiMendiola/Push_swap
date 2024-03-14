@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_stack.c                                     :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 16:30:24 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:55:38 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/push_swap.h"
+
+void	free_list(t_stack **stack)
+{
+	t_stack	*aux;
+
+	while (*stack)
+	{
+		aux = (*stack)->next;
+		free((*stack));
+		*stack = aux;
+	}
+	free(stack);
+}
 
 t_stack	*last_node(t_stack *lst)
 {
@@ -66,36 +79,11 @@ long	ft_atol_ps(char *str)
 			i++;
 		}
 		if (!ft_isdigit(str[i]))
-			show_error(ERROR);
+			show_error();
 		n = (n * 10) + (str[i++] - '0');
 	}
 	n *= sign;
 	if (INT_MIN >= n || n >= INT_MAX)
-		show_error(ERROR);
+		show_error();
 	return (n);
-}
-
-void	create_stack(t_stack **stack, char **nums, int *index)
-{
-	int		j;
-	long	num;
-	t_stack	*node;
-
-	num = 0;
-	if (!nums[1])
-	{
-		num = ft_atol_ps(nums[0]);
-		node = new_node((*index)++, num);
-		add_node_back(stack, node);
-	}
-	else
-	{
-		j = 0;
-		while (nums[j])
-		{
-			num = ft_atol_ps(nums[j++]);
-			node = new_node((*index)++, num);
-			add_node_back(stack, node);
-		}
-	}
 }

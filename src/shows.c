@@ -6,16 +6,15 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:23:15 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 16:23:59 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:25:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/push_swap.h"
 
-void	show_error(char *str)
+void	show_error(void)
 {
-	ft_putstr_fd(RED "ERROR: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(RED "Error\n", STDERR_FILENO);
 	ft_putstr_fd(CLEAR, STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }

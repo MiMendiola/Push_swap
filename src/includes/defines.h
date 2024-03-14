@@ -6,11 +6,24 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:48:12 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 12:47:02 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:28:18 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ================= MOVEMENTS =================== */
+# define MOVEPA 0
+# define MOVEPB 1
+# define MOVESA 2
+# define MOVESB 3
+# define MOVESS 4
+# define MOVERA 5
+# define MOVERB 6
+# define MOVERR 7
+# define MOVERRA 8
+# define MOVERRB 9
+# define MOVERRR 10
+
+/* ================= MESSAGES ==================== */
 # define PA "pa\n"
 # define PB "pb\n"
 # define SA "sa\n"
@@ -22,9 +35,6 @@
 # define RRA "rra\n"
 # define RRB "rrb\n"
 # define RRR "rrr\n"
-
-/* ================== MESSAGES =================== */
-# define ERROR "Error\n"
 
 /* ============== SETTINGS COLORS ================ */
 # define BLACK "\x1B[30m"

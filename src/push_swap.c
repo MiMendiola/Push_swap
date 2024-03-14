@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 17:01:00 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:32:13 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,53 +27,23 @@ void	ft_leaks(void)
 	system("leaks -q push_swap");
 }
 
-void	free_list(t_stack **stack)
+void	push_to(t_stack **stack, t_stack **node)
 {
-	t_stack	*aux;
-
-	while (*stack)
-	{
-		aux = (*stack)->next;
-		free((*stack));
-		*stack = aux;
-	}
-	free(stack);
-}
-
-void	check_duplicates(t_stack **stack)
-{
-	int i;
-	t_stack *next_num;
 	
-	i = 0;
-	if (*stack != NULL)
-	{
-		next_num = (*stack)->next;
-		while (next_num != NULL)
-		{
-			if ((*stack)->num == next_num->num)
-				show_error("CAGUE");
-			next_num = next_num->next;
-		}
-	}
 }
 
-void	check_arguments(char *av[], t_stack **stack_a)
+void	push_node(t_stack **stack_a, t_stack **stack_b, int move)
 {
-	int		i;
-	int		index;
-	char	**numbers;
-
-	i = 0;
-	index = 1;
-	while (av[++i])
+	if (move == MOVEPA)
 	{
-		numbers = ft_split(av[i], ' ');
-		create_stack(stack_a, numbers, &index);
-		check_duplicates(stack_a);
-		free_matrix(numbers);
+		push_to(stack_a, stack_b);
+		ft_putstr(PA);
 	}
-	show_lst(stack_a);
+	else if (move == MOVEPB)
+	{
+		push_to(stack_a, stack_b);
+		ft_putstr(PB);
+	}
 }
 
 int	main(int ac, char *av[])
@@ -86,11 +56,14 @@ int	main(int ac, char *av[])
 	atexit(ft_leaks);
 	if (ac > 1)
 	{
-		check_arguments(av, stack_a);
+		stack_creator(av, stack_a);
+
+		push_node(stack_a, stack_b, MOVEPB);
+
 		printf("node stack--> [%p]\n", stack_a);
 		free_list(stack_a);
 		free_list(stack_b);
 	}
 	else
-		show_error(ERROR);
+		show_error();
 }
