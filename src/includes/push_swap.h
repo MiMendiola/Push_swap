@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/13 19:46:29 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:31:40 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-void					show_error(char *str);
-
 typedef struct s_stack	t_stack;
 
 struct					s_stack
@@ -31,5 +29,14 @@ struct					s_stack
 	t_stack				*prev;
 	t_stack				*next;
 };
+
+void					show_lst(t_stack **stack);
+void					show_error(char *str);
+
+void					create_stack(t_stack **stack, char **nums, int *index);
+long					ft_atol_ps(char *str);
+void					add_node_back(t_stack **stack, t_stack *new);
+t_stack					*last_node(t_stack *lst);
+t_stack					*new_node(int id, long num);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:48:12 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/12 12:48:13 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:47:02 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@
 # define RRR "rrr\n"
 
 /* ================== MESSAGES =================== */
-# define ERROR_ARGUMENTS "Add more arguments\n"
-# define ERROR_ARGUMENT_NON_VALID "Number not valid\n"
-# define ERROR_ARGUMENT_NON_DIGIT "Alpha cant be passed as an argument\n"
+# define ERROR "Error\n"
 
 /* ============== SETTINGS COLORS ================ */
 # define BLACK "\x1B[30m"

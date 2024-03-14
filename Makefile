@@ -11,7 +11,7 @@ RM = rm -f
 
 LIBFTA = libft/libft.a
 
-SRCS = $(addprefix ./src/, push_swap.c)
+SRCS = $(addprefix ./src/, push_swap.c create_stack.c shows.c)
 
 OBJS = $(SRCS:.c=.o)
 
