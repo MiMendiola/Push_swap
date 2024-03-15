@@ -27,21 +27,20 @@ void	ft_leaks(void)
 	system("leaks -q push_swap");
 }
 
-void	push_to(t_stack **stack, t_stack **node)
-{
-	
-}
+//void	push_to(t_stack **stack, t_stack **node)
+//{	
+//}
 
-void	push_node(t_stack **stack_a, t_stack **stack_b, int move)
+void	push_node(/* t_stack **stack_a, t_stack **stack_b, */ int move)
 {
 	if (move == MOVEPA)
 	{
-		push_to(stack_a, stack_b);
+		//push_to(stack_a, stack_b);
 		ft_putstr(PA);
 	}
 	else if (move == MOVEPB)
 	{
-		push_to(stack_a, stack_b);
+		//push_to(stack_a, stack_b);
 		ft_putstr(PB);
 	}
 }
@@ -58,7 +57,7 @@ int	main(int ac, char *av[])
 	{
 		stack_creator(av, stack_a);
 
-		push_node(stack_a, stack_b, MOVEPB);
+		push_node(/* stack_a, stack_b, */ MOVEPB);
 
 		printf("node stack--> [%p]\n", stack_a);
 		free_list(stack_a);

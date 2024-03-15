@@ -23,13 +23,11 @@ void	free_all(char **to_free)
 void	relocate_line(char **str_static, char **front)
 {
 	int		i;
-	int		j;
 	char	*back;
 
 	i = 0;
-	j = -1;
 	back = NULL;
-	if (!*str_static || str_static[0] == '\0')
+	if (!*str_static || (*str_static)[0] == '\0')
 		*front = NULL;
 	while ((*str_static)[i] != '\0' && (*str_static)[i] != '\n')
 		i++;
@@ -54,7 +52,7 @@ char	*read_till_find(int fd, char *str_static)
 	{
 		nb_bytes = read(fd, new_read, BUFFER_SIZE);
 		if (nb_bytes < 0)
-			return (free(&str_static), NULL);
+			return (free(str_static), NULL);
 		if (nb_bytes == 0)
 			break ;
 		new_read[nb_bytes] = '\0';

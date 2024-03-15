@@ -14,10 +14,8 @@
 
 void	stack_duplicate_arg(t_stack *stack)
 {
-	int i;
 	t_stack *next_num;
 	
-	i = 0;
 	while (stack)
 	{
 		next_num = stack->next;
