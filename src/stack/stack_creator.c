@@ -6,11 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:42:17 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 12:15:15 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:11:42 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/push_swap.h"
+#include "../includes/push_swap.h"
 
 void	stack_duplicate_arg(t_stack *stack)
 {
@@ -73,6 +73,4 @@ void	stack_creator(char *av[], t_stack **stack_a)
 		stack_duplicate_arg(*stack_a);
 		free_matrix(numbers);
 	}
-	
-	// show_lst(stack_a);
 }

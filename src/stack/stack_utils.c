@@ -6,24 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 12:30:59 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:11:52 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/push_swap.h"
-
-void	free_list(t_stack **stack)
-{
-	t_stack	*aux;
-
-	while (*stack)
-	{
-		aux = (*stack)->next;
-		free(*stack);
-		*stack = aux;
-	}
-	free(stack);
-}
+#include "../includes/push_swap.h"
 
 t_stack	*last_node(t_stack *lst)
 {

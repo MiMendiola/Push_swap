@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 16:57:11 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:33:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	ft_leaks(void)
 	system("leaks -q push_swap");
 }
 
+void	sort_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	int	len_stack;
+
+	len_stack = stack_len(*stack_a);
+	if (len_stack-- > 3 && !stack_sorted(*stack_a))
+		push(stack_a, stack_b, MOVEPB);
+}
+
 int	main(int ac, char *av[])
 {
 	t_stack	**stack_a;
@@ -46,14 +55,28 @@ int	main(int ac, char *av[])
 	{
 		stack_creator(av, stack_a);
 
-		push_to(stack_a, stack_b, MOVEPB);
-		push_to(stack_a, stack_b, MOVEPB);
-		push_to(stack_a, stack_b, MOVEPB);
+
 
 		show_lst(stack_a);
 		show_lst(stack_b);
-
-		printf("node stack--> [%p]\n", stack_a);
+		
+		
+		if (!stack_sorted(*stack_a))
+		{
+			if (stack_len(*stack_a) == 2)
+				swap(stack_a, stack_b, MOVESA);
+			else if (stack_len(*stack_a) == 3)
+				sort_stack_three(stack_a);
+			else
+				sort_stack(stack_a, stack_b);
+		}
+		
+		printf("\n\nStack A ORDENADO:\n\n");
+		show_lst(stack_a);
+		
+		// printf("Stack b \n");
+		// show_lst(stack_b);
+		
 		free_list(stack_a);
 		free_list(stack_b);
 	}

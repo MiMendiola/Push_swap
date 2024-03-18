@@ -12,8 +12,8 @@ RM = rm -f
 LIBFTA = libft/libft.a
 
 SRCS = $(addprefix ./src/, push_swap.c \
-		stack_creator.c stack_utils.c \
-		push.c swap.c reverse.c reverse_rotate.c \
+		movements/push.c movements/reverse_rotate.c movements/rotate.c movements/swap.c \
+		stack/stack_creator.c stack/stack_properties.c stack/stack_sort.c stack/stack_utils.c \
 		shows.c)
 
 OBJS = $(SRCS:.c=.o)

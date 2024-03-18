@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 17:00:30 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:11:10 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ struct					s_stack
 	t_stack				*next;
 };
 
-/* =============== STACK CREATOR =============== */
-void					stack_duplicate_arg(t_stack *stack);
-void					stack_add_node(t_stack **stack, char **nums,
-							int *index);
-void					stack_creator(char *av[], t_stack **stack_a);
-
-/* ================ STACK UTILS ================ */
-void					free_list(t_stack **stack);
-long					ft_atol_ps(char *str);
-void					add_node_back(t_stack **stack, t_stack *new);
-t_stack					*last_node(t_stack *lst);
-t_stack					*new_node(int id, long num);
-
 /* =============== PUSH FUNTIONS =============== */
 void					push(t_stack **stack_a, t_stack **stack_b, int move);
 void					push_node(t_stack **stack, t_stack **node);
@@ -52,13 +39,36 @@ void					swap(t_stack **stack_a, t_stack **stack_b, int move);
 void					swap_node(t_stack **stack);
 
 /* ============== REVERSE FUNTIONS ============= */
-void					reverse(t_stack **stack_a, t_stack **stack_b, int move);
-void					reverse_node(t_stack **stack);
+void					rotate(t_stack **stack_a, t_stack **stack_b, int move);
+void					rotate_node(t_stack **stack);
 
 /* =============== REVERSE ROTATE ============== */
 void					reverse_rotate(t_stack **stack_a, t_stack **stack_b,
 							int move);
 void					reverse_rotate_node(t_stack **stack);
+
+/* =============== STACK CREATOR =============== */
+void					stack_duplicate_arg(t_stack *stack);
+void					stack_add_node(t_stack **stack, char **nums,
+							int *index);
+void					stack_creator(char *av[], t_stack **stack_a);
+
+/* ============= STACK PROPERTIES ============== */
+void					free_list(t_stack **stack);
+int						stack_len(t_stack *stack);
+int						stack_sorted(t_stack *stack);
+void					stack_index(t_stack *stack);
+t_stack					*stack_max(t_stack *stack);
+
+/* ================= SORT STACK ================ */
+void					sort_stack_three(t_stack **stack);
+// void					sort_stack(t_stack **stack_a, t_stack **stack_b);
+
+/* ================ STACK UTILS ================ */
+t_stack					*last_node(t_stack *lst);
+t_stack					*new_node(int id, long num);
+void					add_node_back(t_stack **stack, t_stack *new);
+long					ft_atol_ps(char *str);
 
 /* =============== SHOW FUNTIONS =============== */
 void					show_lst(t_stack **stack);
