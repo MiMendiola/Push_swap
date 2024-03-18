@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 16:52:50 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:00:30 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_stack					*last_node(t_stack *lst);
 t_stack					*new_node(int id, long num);
 
 /* =============== PUSH FUNTIONS =============== */
-void					push_to(t_stack **stack_a, t_stack **stack_b, int move);
+void					push(t_stack **stack_a, t_stack **stack_b, int move);
 void					push_node(t_stack **stack, t_stack **node);
 
 /* =============== SWAP FUNTIONS =============== */

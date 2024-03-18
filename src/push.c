@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:14:40 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 11:02:07 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:00:21 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	push_move(t_stack **stack, t_stack **node)
 	}
 }
 
-void	push_to(t_stack **stack_a, t_stack **stack_b, int move)
+void	push(t_stack **stack_a, t_stack **stack_b, int move)
 {
 	if (move == MOVEPA)
 	{
