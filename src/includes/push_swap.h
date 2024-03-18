@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 19:59:06 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:52:50 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ long					ft_atol_ps(char *str);
 void					add_node_back(t_stack **stack, t_stack *new);
 t_stack					*last_node(t_stack *lst);
 t_stack					*new_node(int id, long num);
+
+/* =============== PUSH FUNTIONS =============== */
+void					push_to(t_stack **stack_a, t_stack **stack_b, int move);
+void					push_node(t_stack **stack, t_stack **node);
+
+/* =============== SWAP FUNTIONS =============== */
+void					swap(t_stack **stack_a, t_stack **stack_b, int move);
+void					swap_node(t_stack **stack);
+
+/* ============== REVERSE FUNTIONS ============= */
+void					reverse(t_stack **stack_a, t_stack **stack_b, int move);
+void					reverse_node(t_stack **stack);
+
+/* =============== REVERSE ROTATE ============== */
+void					reverse_rotate(t_stack **stack_a, t_stack **stack_b,
+							int move);
+void					reverse_rotate_node(t_stack **stack);
 
 /* =============== SHOW FUNTIONS =============== */
 void					show_lst(t_stack **stack);

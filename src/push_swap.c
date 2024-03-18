@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 20:32:13 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:57:11 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,18 @@
 #include "../libft/lib/ft_strdup.c"
 #include "../libft/lib/ft_strlen.c"
 #include "../libft/lib/ft_substr.c"
+
+
+// #include "./stack_utils.c"
+// #include "./shows.c"
+// #include "./stack_creator.c"
+
+
 #include "./includes/push_swap.h"
 
 void	ft_leaks(void)
 {
 	system("leaks -q push_swap");
-}
-
-//void	push_to(t_stack **stack, t_stack **node)
-//{	
-//}
-
-void	push_node(/* t_stack **stack_a, t_stack **stack_b, */ int move)
-{
-	if (move == MOVEPA)
-	{
-		//push_to(stack_a, stack_b);
-		ft_putstr(PA);
-	}
-	else if (move == MOVEPB)
-	{
-		//push_to(stack_a, stack_b);
-		ft_putstr(PB);
-	}
 }
 
 int	main(int ac, char *av[])
@@ -57,7 +46,12 @@ int	main(int ac, char *av[])
 	{
 		stack_creator(av, stack_a);
 
-		push_node(/* stack_a, stack_b, */ MOVEPB);
+		push_to(stack_a, stack_b, MOVEPB);
+		push_to(stack_a, stack_b, MOVEPB);
+		push_to(stack_a, stack_b, MOVEPB);
+
+		show_lst(stack_a);
+		show_lst(stack_b);
 
 		printf("node stack--> [%p]\n", stack_a);
 		free_list(stack_a);

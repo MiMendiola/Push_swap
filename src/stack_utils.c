@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 19:55:38 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:30:59 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_list(t_stack **stack)
 	while (*stack)
 	{
 		aux = (*stack)->next;
-		free((*stack));
+		free(*stack);
 		*stack = aux;
 	}
 	free(stack);
@@ -65,7 +65,7 @@ long	ft_atol_ps(char *str)
 {
 	long	n;
 	int		i;
-	int		sign;
+	long	sign;
 
 	n = 0;
 	i = 0;
@@ -78,12 +78,14 @@ long	ft_atol_ps(char *str)
 				sign = -1;
 			i++;
 		}
+		if (str[i] == '-' || str[i] == '+')
+			show_error();
 		if (!ft_isdigit(str[i]))
 			show_error();
 		n = (n * 10) + (str[i++] - '0');
+		if ((sign == 1 && n > INT_MAX) || (sign == -1 && -n < INT_MIN))
+            return ((long)INT_MAX + 1);
 	}
 	n *= sign;
-	if (INT_MIN >= n || n >= INT_MAX)
-		show_error();
 	return (n);
 }
