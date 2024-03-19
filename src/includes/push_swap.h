@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 20:11:10 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:57:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 
 typedef struct s_stack	t_stack;
@@ -26,6 +27,8 @@ struct					s_stack
 {
 	int					id;
 	long				num;
+	bool				median;
+	t_stack				*target;
 	t_stack				*prev;
 	t_stack				*next;
 };
