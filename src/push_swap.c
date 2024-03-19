@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/19 13:58:47 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:46:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@
 void	ft_leaks(void)
 {
 	system("leaks -q push_swap");
+}
+
+void	stack_min_cost(t_stack *stack)
+{
+	t_stack *min;
+	long	min_cost;
+	
+	min_cost = INT_MAX;
+	while (stack)
+	{
+		if (stack->cost < min_cost)
+		{
+			min_cost = stack->cost;
+			min = stack;
+		}
+		stack = stack->next;
+	}
+	min->min_cost = true;
 }
 
 void	stack_above_half(t_stack *stack)
@@ -76,10 +94,25 @@ void	stack_set_target(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-// void	stack_push_cost()
-// {
-	
-// }
+void	stack_push_cost(t_stack *stack_a, t_stack *stack_b)
+{
+	int len_stack_a;
+	int len_stack_b;
+
+	len_stack_a = stack_len(stack_a);
+	len_stack_b = stack_len(stack_b);
+	while (stack_a)
+	{
+		stack_a->cost = stack_a->id;
+		if (!stack_a->median)
+			stack_a->cost += len_stack_a - stack_a->id;
+		if (stack_a->target->median)
+			stack_a->cost += stack_a->target->id;
+		else
+			stack_a->cost += len_stack_b - stack_a->target->id;
+		stack_a = stack_a->next;
+	}
+}
 
 void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 {
@@ -95,6 +128,8 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 		stack_above_half(*stack_a);
 		stack_above_half(*stack_b);
 		stack_set_target(*stack_a, *stack_b);
+		stack_push_cost(*stack_a, *stack_b);
+		stack_min_cost(*stack_a);
 	}
 }
 

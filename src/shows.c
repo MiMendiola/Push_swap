@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:23:15 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/14 20:25:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:53:39 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ void	show_lst(t_stack **stack)
 	aux = *stack;
 	while (aux != NULL)
 	{
+		printf("STACK NODE	->	%p\n", *stack);
 		if (aux->prev)
-			printf("num prev[%d] --> [%ld]\n", aux->prev->id, aux->prev->num);
-		printf("num node[%d] --> [%ld]\n", aux->id, aux->num);
-		printf("node stack--> [%p]\n", *stack);
-		printf("node prev--> [%p]\n", aux->prev);
-		printf("node next--> [%p]\n\n", aux->next);
+			printf("PREV NUM[%d]	->	%ld\n", aux->prev->id, aux->prev->num);
+		printf("NUM NODE[%d]	->	%ld\n", aux->id, aux->num);
+		printf("COST NODE	->	%d\n", (*stack)->cost);
+		printf("ABOVE MEDIAN	->	%d\n", aux->median);
+		printf("MIN COST	->	%d\n", aux->min_cost);
+		printf("TARGET NODE	->	%p\n", aux->target);
+		printf("PREV NODE	->	%p\n", aux->prev);
+		printf("NEXT NODE	->	%p\n\n\n", aux->next);
 		aux = aux->next;
 	}
 }

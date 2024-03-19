@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/19 11:57:45 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:42:04 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ struct					s_stack
 {
 	int					id;
 	long				num;
+	int					cost;
 	bool				median;
+	bool				min_cost;
 	t_stack				*target;
 	t_stack				*prev;
 	t_stack				*next;
