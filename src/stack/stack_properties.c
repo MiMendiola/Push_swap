@@ -6,48 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:46:58 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 20:11:45 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:51:05 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	free_list(t_stack **stack)
-{
-	t_stack	*aux;
-
-	while (*stack)
-	{
-		aux = (*stack)->next;
-		free(*stack);
-		*stack = aux;
-	}
-	free(stack);
-}
-
-int	stack_len(t_stack *stack)
-{
-	int counter;
-
-	counter = 0;
-	while (stack)
-	{
-		counter++;
-		stack = stack->next;
-	}
-	return (counter);
-}
-
-int	stack_sorted(t_stack *stack)
-{
-	while (stack && stack->next)
-	{
-		if (stack->num > stack->next->num)
-			return (0);
-		stack = stack->next;
-	}
-	return (1);
-}
 
 void	stack_index(t_stack *stack)
 {
@@ -77,4 +40,35 @@ t_stack	*stack_max(t_stack *stack)
 		stack = stack->next;
 	}
 	return (max);
+}
+
+t_stack	*stack_min(t_stack *stack)
+{
+	t_stack *min;
+	long	num_min;
+	
+	num_min = INT_MAX;
+	while (stack)
+	{
+		if (stack->num < num_min)
+		{
+			min = stack;
+			num_min = stack->num;
+		}
+		stack = stack->next;
+	}
+	return (min);
+}
+
+t_stack	*stack_min_cost(t_stack *stack)
+{
+	t_stack *min;
+	
+	while (stack)
+	{
+		if (stack->min_cost == true)
+			min = stack;
+		stack = stack->next;
+	}
+	return (min);
 }

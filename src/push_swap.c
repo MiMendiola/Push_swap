@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/19 19:46:45 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:45:41 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,24 @@ void	ft_leaks(void)
 	system("leaks -q push_swap");
 }
 
-void	stack_min_cost(t_stack *stack)
+void	free_list(t_stack **stack)
 {
-	t_stack *min;
+	t_stack	*aux;
+
+	while (*stack)
+	{
+		aux = (*stack)->next;
+		free(*stack);
+		*stack = aux;
+	}
+	free(stack);
+}
+
+void	stack_set_min_cost(t_stack *stack)
+{
+	t_stack	*min;
 	long	min_cost;
-	
+
 	min_cost = INT_MAX;
 	while (stack)
 	{
@@ -69,7 +82,7 @@ void	stack_above_half(t_stack *stack)
 	}
 }
 
-void	stack_set_target(t_stack *stack_a, t_stack *stack_b)
+void	stack_set_target_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_stack	*target_stack;
 	long	target_num;
@@ -94,10 +107,35 @@ void	stack_set_target(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+void	stack_set_target_b(t_stack *stack_a, t_stack *stack_b)
+{
+	t_stack	*target_stack;
+	long	target_num;
+
+	while (stack_b)
+	{
+		target_num = LONG_MAX;
+		target_stack = stack_a;
+		while (target_stack)
+		{
+			if (target_stack->num > stack_b->num
+				&& target_stack->num < target_num)
+			{
+				target_num = target_stack->num;
+				stack_b->target = target_stack;
+			}
+			target_stack = target_stack->next;
+		}
+		if (target_num == LONG_MAX)
+			stack_b->target = stack_min(stack_a);
+		stack_b = stack_b->next;
+	}
+}
+
 void	stack_push_cost(t_stack *stack_a, t_stack *stack_b)
 {
-	int len_stack_a;
-	int len_stack_b;
+	int	len_stack_a;
+	int	len_stack_b;
 
 	len_stack_a = stack_len(stack_a);
 	len_stack_b = stack_len(stack_b);
@@ -114,6 +152,64 @@ void	stack_push_cost(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*stack_min;
+
+	stack_min = stack_min_cost(*stack_a);
+	if (stack_min->median)
+		while (*stack_a != stack_min)
+			rotate(stack_a, stack_b, MOVERA);
+	else
+		while (*stack_a != stack_min)
+			reverse_rotate(stack_a, stack_b, MOVERRA);
+	if (stack_min->median && stack_min->target->median)
+		while (*stack_a != stack_min && *stack_b != stack_min->target)
+			rotate(stack_a, stack_b, MOVERR);
+	else
+		while (*stack_a != stack_min && *stack_b != stack_min->target)
+			reverse_rotate(stack_a, stack_b, MOVERRR);
+	if (stack_min->target->median)
+		while (*stack_b != stack_min->target)
+			rotate(stack_a, stack_b, MOVERB);
+	else
+		while (*stack_b != stack_min->target)
+			reverse_rotate(stack_a, stack_b, MOVERRB);
+	push(stack_a, stack_b, MOVEPB);
+	stack_index(*stack_a);
+	stack_index(*stack_b);
+}
+
+void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*target_b;
+
+	if (!stack_b || !(*stack_b))
+			return;
+	target_b = (*stack_b)->target;
+	if (!(target_b->median))
+		while (*stack_a != target_b)
+			reverse_rotate(stack_a, stack_b, MOVERRA);
+	else
+		while (*stack_a != target_b)
+			rotate(stack_a, stack_b, MOVERA);
+	push(stack_a, stack_b, MOVEPA);
+}
+
+void	stack_final_sort(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack *min_node;
+
+	min_node = stack_min(*stack_a);
+	while (*stack_a != min_node)
+	{
+		if (min_node->median)
+			rotate(stack_a, stack_b, MOVERA);
+		else
+			reverse_rotate(stack_a, stack_b, MOVERRA);
+	}
+}
+
 void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	len_stack;
@@ -127,10 +223,20 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 	{
 		stack_above_half(*stack_a);
 		stack_above_half(*stack_b);
-		stack_set_target(*stack_a, *stack_b);
+		stack_set_target_a(*stack_a, *stack_b);
 		stack_push_cost(*stack_a, *stack_b);
-		stack_min_cost(*stack_a);
+		stack_set_min_cost(*stack_a);
+		stack_move_node_a(stack_a, stack_b);
 	}
+	sort_stack_three(stack_a);
+	while (*stack_b)
+	{
+		stack_above_half(*stack_a);
+		stack_set_target_b(*stack_a, *stack_b);
+		stack_set_min_cost(*stack_b);
+		stack_move_node_b(stack_a, stack_b);
+	}
+	stack_final_sort(stack_a, stack_b);
 }
 
 int	main(int ac, char *av[])
@@ -140,12 +246,10 @@ int	main(int ac, char *av[])
 
 	stack_a = ft_calloc(1, sizeof(t_stack *));
 	stack_b = ft_calloc(1, sizeof(t_stack *));
-	atexit(ft_leaks);
+	// atexit(ft_leaks);
 	if (ac > 1)
 	{
 		stack_creator(av, stack_a);
-		show_lst(stack_a);
-		show_lst(stack_b);
 		if (!stack_sorted(*stack_a))
 		{
 			if (stack_len(*stack_a) == 2)
@@ -155,10 +259,7 @@ int	main(int ac, char *av[])
 			else
 				sort_stack(stack_a, stack_b);
 		}
-		printf("\n\nStack A ORDENADO:\n\n");
-		show_lst(stack_a);
-		// printf("Stack b \n");
-		// show_lst(stack_b);
+		// show_lst(stack_a);
 		free_list(stack_a);
 		free_list(stack_b);
 	}

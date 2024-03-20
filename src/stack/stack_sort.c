@@ -6,11 +6,22 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:08 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 20:11:48 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:45:35 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+int	stack_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->num > stack->next->num)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
 
 void	sort_stack_three(t_stack **stack)
 {

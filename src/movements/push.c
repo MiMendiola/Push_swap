@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:14:40 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 20:11:30 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:32:45 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void	push_move(t_stack **stack, t_stack **node)
 	{
 		*stack = aux;
 		(*stack)->next = NULL;
-		(*node)->prev = NULL;
+		// (*node)->prev = NULL;
 	}
 	else
 	{
 		aux->next = *stack;
 		aux->prev = NULL;
-		(*node)->prev = NULL;
+		if (*node)
+			(*node)->prev = NULL;
 		(*stack)->prev = aux;
 		*stack = aux;
 	}

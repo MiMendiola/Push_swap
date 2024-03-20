@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/19 19:42:04 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:27:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include "../../libft/includes/libft.h"
 # include "./defines.h"
 # include <limits.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include <unistd.h>
 
 typedef struct s_stack	t_stack;
@@ -59,13 +59,13 @@ void					stack_add_node(t_stack **stack, char **nums,
 void					stack_creator(char *av[], t_stack **stack_a);
 
 /* ============= STACK PROPERTIES ============== */
-void					free_list(t_stack **stack);
-int						stack_len(t_stack *stack);
-int						stack_sorted(t_stack *stack);
 void					stack_index(t_stack *stack);
 t_stack					*stack_max(t_stack *stack);
+t_stack					*stack_min(t_stack *stack);
+t_stack					*stack_min_cost(t_stack *stack);
 
 /* ================= SORT STACK ================ */
+int						stack_sorted(t_stack *stack);
 void					sort_stack_three(t_stack **stack);
 // void					sort_stack(t_stack **stack_a, t_stack **stack_b);
 
@@ -74,6 +74,7 @@ t_stack					*last_node(t_stack *lst);
 t_stack					*new_node(int id, long num);
 void					add_node_back(t_stack **stack, t_stack *new);
 long					ft_atol_ps(char *str);
+int						stack_len(t_stack *stack);
 
 /* =============== SHOW FUNTIONS =============== */
 void					show_lst(t_stack **stack);
