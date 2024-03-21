@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/21 14:18:55 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:50:17 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b)
 	t_stack	*stack_min;
 
 	stack_min = stack_min_cost(*stack_a);
+	if (stack_min->median && stack_min->target->median)
+		while (*stack_a != stack_min && *stack_b != stack_min->target)
+		{
+			rotate(stack_a, stack_b, MOVERR);
+			stack_set_above_half(*stack_a);
+			stack_set_above_half(*stack_b);
+		}
+	else
+		while (*stack_a != stack_min && *stack_b != stack_min->target)
+		{
+			reverse_rotate(stack_a, stack_b, MOVERRR);
+			stack_set_above_half(*stack_a);
+			stack_set_above_half(*stack_b);
+		}
 	if (stack_min->median)
 		while (*stack_a != stack_min)
 			rotate(stack_a, stack_b, MOVERA);
@@ -62,12 +76,6 @@ void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b)
 	else
 		while (*stack_b != stack_min->target)
 			reverse_rotate(stack_a, stack_b, MOVERRB);
-	if (stack_min->median && stack_min->target->median)
-		while (*stack_a != stack_min && *stack_b != stack_min->target)
-			rotate(stack_a, stack_b, MOVERR);
-	else
-		while (*stack_a != stack_min && *stack_b != stack_min->target)
-			reverse_rotate(stack_a, stack_b, MOVERRR);
 	push(stack_a, stack_b, MOVEPB);
 }
 
@@ -75,14 +83,14 @@ void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*target_b;
 
-	if (!stack_b || !(*stack_b))
+	if (!stack_b)
 			return;
-	target_b = (*stack_b)->target;
-	if (!(target_b->median))
-		while (*stack_a != target_b)
+	target_b = *stack_b;
+	if (!(target_b->target->median))
+		while (*stack_a != target_b->target)
 			reverse_rotate(stack_a, stack_b, MOVERRA);
 	else
-		while (*stack_a != target_b)
+		while (*stack_a != target_b->target)
 			rotate(stack_a, stack_b, MOVERA);
 	push(stack_a, stack_b, MOVEPA);
 }

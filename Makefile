@@ -42,3 +42,9 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+
+t: test
+test: all
+	@cp $(NAME) tester/
+	@cd tester/; ./push_swap_test.sh
