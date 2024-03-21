@@ -35,6 +35,9 @@ struct					s_stack
 	t_stack				*next;
 };
 
+void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b);
+void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b);
+
 /* =============== PUSH FUNTIONS =============== */
 void					push(t_stack **stack_a, t_stack **stack_b, int move);
 void					push_node(t_stack **stack, t_stack **node);
@@ -64,10 +67,18 @@ t_stack					*stack_max(t_stack *stack);
 t_stack					*stack_min(t_stack *stack);
 t_stack					*stack_min_cost(t_stack *stack);
 
+/* =============== SETTERS STACK =============== */
+void					stack_set_min_cost(t_stack *stack);
+void					stack_set_above_half(t_stack *stack);
+void					stack_set_push_cost(t_stack *stack_a, t_stack *stack_b);
+void					stack_set_target_a(t_stack *stack_a, t_stack *stack_b);
+void					stack_set_target_b(t_stack *stack_a, t_stack *stack_b);
+
 /* ================= SORT STACK ================ */
-int						stack_sorted(t_stack *stack);
+int						sorted_stack(t_stack *stack);
 void					sort_stack_three(t_stack **stack);
-// void					sort_stack(t_stack **stack_a, t_stack **stack_b);
+void					sort_stack(t_stack **stack_a, t_stack **stack_b);
+void					stack_final_sort(t_stack **stack_a, t_stack **stack_b);
 
 /* ================ STACK UTILS ================ */
 t_stack					*last_node(t_stack *lst);

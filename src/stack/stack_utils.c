@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/20 15:27:25 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:13:08 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ void	add_node_back(t_stack **stack, t_stack *new)
 		*stack = new;
 }
 
+int	stack_len(t_stack *stack)
+{
+	int counter;
+
+	counter = 0;
+	while (stack)
+	{
+		counter++;
+		stack = stack->next;
+	}
+	return (counter);
+}
+
 long	ft_atol_ps(char *str)
 {
 	long	n;
@@ -75,17 +88,4 @@ long	ft_atol_ps(char *str)
 	}
 	n *= sign;
 	return (n);
-}
-
-int	stack_len(t_stack *stack)
-{
-	int counter;
-
-	counter = 0;
-	while (stack)
-	{
-		counter++;
-		stack = stack->next;
-	}
-	return (counter);
 }

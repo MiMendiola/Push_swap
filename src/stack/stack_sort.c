@@ -6,13 +6,13 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:08 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/20 18:45:35 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:20:46 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	stack_sorted(t_stack *stack)
+int	sorted_stack(t_stack *stack)
 {
 	while (stack && stack->next)
 	{
@@ -45,7 +45,45 @@ void	sort_stack_three(t_stack **stack)
 	}
 }
 
-// void	sort_stack(t_stack **stack_a, t_stack **stack_b)
-// {
-	
-// }
+void	sort_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	int	len_stack;
+
+	len_stack = stack_len(*stack_a);
+	if (len_stack-- > 3 && !sorted_stack(*stack_a))
+		push(stack_a, stack_b, MOVEPB);
+	if (len_stack-- > 3 && !sorted_stack(*stack_a))
+		push(stack_a, stack_b, MOVEPB);
+	while (len_stack-- > 3 && !sorted_stack(*stack_a))
+	{
+		stack_set_above_half(*stack_a);
+		stack_set_above_half(*stack_b);
+		stack_set_target_a(*stack_a, *stack_b);
+		stack_set_push_cost(*stack_a, *stack_b);
+		stack_set_min_cost(*stack_a);
+		stack_move_node_a(stack_a, stack_b);
+	}
+	sort_stack_three(stack_a);
+	while (*stack_b)
+	{
+		stack_set_above_half(*stack_a);
+		stack_set_target_b(*stack_a, *stack_b);
+		stack_set_min_cost(*stack_b);
+		stack_move_node_b(stack_a, stack_b);
+	}
+	stack_final_sort(stack_a, stack_b);
+}
+
+void	stack_final_sort(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack *min_node;
+
+	min_node = stack_min(*stack_a);
+	while (*stack_a != min_node)
+	{
+		if (min_node->median)
+			rotate(stack_a, stack_b, MOVERA);
+		else
+			reverse_rotate(stack_a, stack_b, MOVERRA);
+	}
+}
