@@ -52,18 +52,10 @@ void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b)
 	stack_min = stack_min_cost(*stack_a);
 	if (stack_min->median && stack_min->target->median)
 		while (*stack_a != stack_min && *stack_b != stack_min->target)
-		{
 			rotate(stack_a, stack_b, MOVERR);
-			stack_set_above_half(*stack_a);
-			stack_set_above_half(*stack_b);
-		}
-	else
+	else if (!stack_min->median && !stack_min->target->median)
 		while (*stack_a != stack_min && *stack_b != stack_min->target)
-		{
 			reverse_rotate(stack_a, stack_b, MOVERRR);
-			stack_set_above_half(*stack_a);
-			stack_set_above_half(*stack_b);
-		}
 	if (stack_min->median)
 		while (*stack_a != stack_min)
 			rotate(stack_a, stack_b, MOVERA);
@@ -86,6 +78,12 @@ void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b)
 	if (!stack_b)
 			return;
 	target_b = *stack_b;
+	if (target_b->median && target_b->target->median)
+		while (*stack_a != target_b->target && *stack_b != target_b)
+			rotate(stack_a, stack_b, MOVERR);
+	else if (!target_b->median && !target_b->target->median)
+		while (*stack_a != target_b->target && *stack_b != target_b)
+			reverse_rotate(stack_a, stack_b, MOVERRR);
 	if (!(target_b->target->median))
 		while (*stack_a != target_b->target)
 			reverse_rotate(stack_a, stack_b, MOVERRA);
@@ -115,7 +113,6 @@ int	main(int ac, char *av[])
 			else
 				sort_stack(stack_a, stack_b);
 		}
-		// show_lst(stack_a);
 		free_list(stack_a);
 		free_list(stack_b);
 	}

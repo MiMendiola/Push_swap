@@ -17,7 +17,7 @@ void	stack_set_min_cost(t_stack *stack)
 	t_stack	*min;
 	long	min_cost;
 
-	min_cost = INT_MAX;
+	min_cost = LONG_MAX;
 	while (stack)
 	{
 		if (stack->cost < min_cost)
@@ -60,7 +60,7 @@ void	stack_set_push_cost(t_stack *stack_main, t_stack *stack_node)
 	{
 		stack_main->cost = stack_main->id;
 		if (!stack_main->median)
-			stack_main->cost += len_stack_main - stack_main->id;
+			stack_main->cost = len_stack_main - stack_main->id;
 		if (stack_main->target->median)
 			stack_main->cost += stack_main->target->id;
 		else

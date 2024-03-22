@@ -27,7 +27,6 @@ void	rotate_node(t_stack **stack)
 		(*stack)->prev = last;
 		*stack = next;
 	}
-	stack_index(*stack);
 }
 
 void	rotate(t_stack **stack_a, t_stack **stack_b, int move)
@@ -48,4 +47,6 @@ void	rotate(t_stack **stack_a, t_stack **stack_b, int move)
 		rotate_node(stack_b);
 		ft_putstr(RR);
 	}
+	stack_index(*stack_a);
+	stack_index(*stack_b);
 }

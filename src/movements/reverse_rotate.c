@@ -27,7 +27,6 @@ void	reverse_rotate_node(t_stack **stack)
 		prev_last->next = NULL;
 		*stack = last;
 	}
-	stack_index(*stack);
 }
 
 void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, int move)
@@ -48,4 +47,6 @@ void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, int move)
 		reverse_rotate_node(stack_b);
 		ft_putstr(RRR);
 	}
+	stack_index(*stack_a);
+	stack_index(*stack_b);
 }
