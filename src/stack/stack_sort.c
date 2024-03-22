@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:08 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/21 19:49:49 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:33:43 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	sorted_stack(t_stack *stack)
 
 void	sort_stack_three(t_stack **stack)
 {
-	t_stack *max;
-	
+	t_stack	*max;
+
 	max = stack_max(*stack);
 	if (*stack == max)
 	{
@@ -58,9 +58,6 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 	{
 		stack_set_above_half(*stack_a);
 		stack_set_above_half(*stack_b);
-		stack_set_target_a(*stack_a, *stack_b);
-		stack_set_push_cost(*stack_a, *stack_b);
-		stack_set_min_cost(*stack_a);
 		stack_move_node_a(stack_a, stack_b);
 	}
 	sort_stack_three(stack_a);
@@ -68,9 +65,6 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 	{
 		stack_set_above_half(*stack_a);
 		stack_set_above_half(*stack_b);
-		stack_set_target_b(*stack_a, *stack_b);
-		stack_set_push_cost(*stack_b, *stack_a);
-		stack_set_min_cost(*stack_b);
 		stack_move_node_b(stack_a, stack_b);
 	}
 	stack_set_above_half(*stack_a);
@@ -79,7 +73,7 @@ void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 
 void	stack_final_sort(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack *min_node;
+	t_stack	*min_node;
 
 	min_node = stack_min(*stack_a);
 	while (*stack_a != min_node)

@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/21 19:50:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:20:24 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ struct					s_stack
 	t_stack				*next;
 };
 
-void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b);
-void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b);
+void					stack_move_node_a(t_stack **stack_a, t_stack **stack_b);
+void					stack_move_node_b(t_stack **stack_a, t_stack **stack_b);
 
 /* =============== PUSH FUNTIONS =============== */
 void					push(t_stack **stack_a, t_stack **stack_b, int move);

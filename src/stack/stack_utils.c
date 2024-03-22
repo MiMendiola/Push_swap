@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/21 14:13:08 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:18:09 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_node_back(t_stack **stack, t_stack *new)
 
 int	stack_len(t_stack *stack)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	while (stack)
@@ -70,22 +70,21 @@ long	ft_atol_ps(char *str)
 	n = 0;
 	i = 0;
 	sign = 1;
-	while (str[i])
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[i] == '-' || str[i] == '+')
-		{
-			if (str[i] == '-')
-				sign = -1;
-			i++;
-		}
-		if (str[i] == '-' || str[i] == '+')
-			show_error();
-		if (!ft_isdigit(str[i]))
-			show_error();
-		n = (n * 10) + (str[i++] - '0');
-		if ((sign == 1 && n > INT_MAX) || (sign == -1 && -n < INT_MIN))
-            return ((long)INT_MAX + 1);
+		if (str[i++] == '-')
+			sign *= -1;
 	}
+	if (!ft_isdigit(str[i]))
+		show_error();
+	while (ft_isdigit(str[i]))
+		n = (str[i++] - '0') + (n * 10);
+	if (!ft_isdigit(str[i]) && str[i])
+		show_error();
 	n *= sign;
+	if (n > INT_MAX || n < INT_MIN)
+		show_error();
 	return (n);
 }

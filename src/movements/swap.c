@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:11:32 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/20 19:47:16 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:19:49 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	swap_node(t_stack **stack)
 {
 	t_stack	*aux;
 	int		num;
-	
+
 	aux = *stack;
 	if (*stack)
 	{

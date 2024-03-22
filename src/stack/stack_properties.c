@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:46:58 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/20 15:51:05 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:18:31 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	stack_index(t_stack *stack)
 	int	i;
 
 	i = 1;
-	while(stack)
+	while (stack)
 	{
 		stack->id = i++;
 		stack = stack->next;
@@ -26,9 +26,9 @@ void	stack_index(t_stack *stack)
 
 t_stack	*stack_max(t_stack *stack)
 {
-	t_stack *max;
+	t_stack	*max;
 	long	num_max;
-	
+
 	num_max = INT_MIN;
 	while (stack)
 	{
@@ -44,9 +44,9 @@ t_stack	*stack_max(t_stack *stack)
 
 t_stack	*stack_min(t_stack *stack)
 {
-	t_stack *min;
+	t_stack	*min;
 	long	num_min;
-	
+
 	num_min = INT_MAX;
 	while (stack)
 	{
@@ -62,8 +62,8 @@ t_stack	*stack_min(t_stack *stack)
 
 t_stack	*stack_min_cost(t_stack *stack)
 {
-	t_stack *min;
-	
+	t_stack	*min;
+
 	while (stack)
 	{
 		if (stack->min_cost == true)
