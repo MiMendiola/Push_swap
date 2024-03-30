@@ -6,11 +6,24 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:18:09 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:16:55 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	free_list(t_stack **stack)
+{
+	t_stack	*aux;
+
+	while (*stack)
+	{
+		aux = (*stack)->next;
+		free(*stack);
+		*stack = aux;
+	}
+	free(stack);
+}
 
 t_stack	*last_node(t_stack *lst)
 {
@@ -46,19 +59,6 @@ void	add_node_back(t_stack **stack, t_stack *new)
 	}
 	else
 		*stack = new;
-}
-
-int	stack_len(t_stack *stack)
-{
-	int	counter;
-
-	counter = 0;
-	while (stack)
-	{
-		counter++;
-		stack = stack->next;
-	}
-	return (counter);
 }
 
 long	ft_atol_ps(char *str)

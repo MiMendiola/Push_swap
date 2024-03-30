@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:51:43 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/18 20:11:33 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:51:52 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,4 @@ void	reverse_rotate(t_stack **stack_a, t_stack **stack_b, int move)
 		reverse_rotate_node(stack_b);
 		ft_putstr(RRR);
 	}
-	stack_index(*stack_a);
-	stack_index(*stack_b);
 }

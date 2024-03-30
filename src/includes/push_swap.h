@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:20:24 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:45:14 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ struct					s_stack
 	t_stack				*next;
 };
 
-void					stack_move_node_a(t_stack **stack_a, t_stack **stack_b);
-void					stack_move_node_b(t_stack **stack_a, t_stack **stack_b);
+void					sort_push_b(t_stack **stack_a, t_stack **stack_b);
+void					sort_push_a(t_stack **stack_a, t_stack **stack_b);
 
 /* =============== PUSH FUNTIONS =============== */
 void					push(t_stack **stack_a, t_stack **stack_b, int move);
@@ -62,30 +62,33 @@ void					stack_add_node(t_stack **stack, char **nums,
 void					stack_creator(char *av[], t_stack **stack_a);
 
 /* ============= STACK PROPERTIES ============== */
-void					stack_index(t_stack *stack);
 t_stack					*stack_max(t_stack *stack);
 t_stack					*stack_min(t_stack *stack);
-t_stack					*stack_min_cost(t_stack *stack);
+int						stack_len(t_stack *stack);
+void					stack_above_half(t_stack *stack);
 
 /* =============== SETTERS STACK =============== */
-void					stack_set_min_cost(t_stack *stack);
-void					stack_set_above_half(t_stack *stack);
-void					stack_set_push_cost(t_stack *stack_a, t_stack *stack_b);
-void					stack_set_target_a(t_stack *stack_a, t_stack *stack_b);
-void					stack_set_target_b(t_stack *stack_a, t_stack *stack_b);
+t_stack					*stack_set_min_cost(t_stack **stack_a,
+							t_stack **stack_b);
+void					stack_set_push_cost(t_stack *stack_a, t_stack *stack_b,
+							t_stack *stack_a_node, int *count);
+void					stack_set_target_a(t_stack *main_stack, t_stack *b);
+t_stack					*stack_set_target_b(t_stack *node, t_stack *stack_a);
+void					stack_set_top_node(t_stack **stack_a, t_stack **stack_b,
+							t_stack *min_cost);
 
 /* ================= SORT STACK ================ */
 int						sorted_stack(t_stack *stack);
 void					sort_stack_three(t_stack **stack);
 void					sort_stack(t_stack **stack_a, t_stack **stack_b);
-void					stack_final_sort(t_stack **stack_a, t_stack **stack_b);
+void					sort_end(t_stack **stack_a, t_stack **stack_b);
 
 /* ================ STACK UTILS ================ */
+void					free_list(t_stack **stack);
 t_stack					*last_node(t_stack *lst);
 t_stack					*new_node(int id, long num);
 void					add_node_back(t_stack **stack, t_stack *new);
 long					ft_atol_ps(char *str);
-int						stack_len(t_stack *stack);
 
 /* =============== SHOW FUNTIONS =============== */
 void					show_lst(t_stack **stack);

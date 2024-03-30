@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:14:40 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:20:12 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:40:15 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	push_move(t_stack **stack, t_stack **node)
 		(*stack)->prev = aux;
 		*stack = aux;
 	}
-	stack_index(*stack);
-	stack_index(*node);
 }
 
 void	push(t_stack **stack_a, t_stack **stack_b, int move)

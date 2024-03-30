@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 11:20:06 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:19:56 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:34:31 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	rotate_node(t_stack **stack)
 	t_stack	*next;
 	t_stack	*last;
 
+	if (!(*stack) || !(*stack)->next)
+		return ;
 	next = (*stack)->next;
 	last = last_node(*stack);
 	if (*stack)
@@ -47,6 +49,4 @@ void	rotate(t_stack **stack_a, t_stack **stack_b, int move)
 		rotate_node(stack_b);
 		ft_putstr(RR);
 	}
-	stack_index(*stack_a);
-	stack_index(*stack_b);
 }

@@ -6,23 +6,11 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:46:58 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:18:31 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:45:05 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	stack_index(t_stack *stack)
-{
-	int	i;
-
-	i = 1;
-	while (stack)
-	{
-		stack->id = i++;
-		stack = stack->next;
-	}
-}
 
 t_stack	*stack_max(t_stack *stack)
 {
@@ -60,15 +48,37 @@ t_stack	*stack_min(t_stack *stack)
 	return (min);
 }
 
-t_stack	*stack_min_cost(t_stack *stack)
+int	stack_len(t_stack *stack)
 {
-	t_stack	*min;
+	int	counter;
 
+	counter = 0;
 	while (stack)
 	{
-		if (stack->min_cost == true)
-			min = stack;
+		counter++;
 		stack = stack->next;
 	}
-	return (min);
+	return (counter);
+}
+
+void	stack_above_half(t_stack *stack)
+{
+	int	half;
+	int	median;
+	int	i;
+
+	i = 1;
+	half = stack_len(stack);
+	median = half / 2;
+	if (half % 2)
+		median++;
+	while (stack)
+	{
+		stack->id = i++;
+		if (stack->id <= median)
+			stack->median = true;
+		else
+			stack->median = false;
+		stack = stack->next;
+	}
 }

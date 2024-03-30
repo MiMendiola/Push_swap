@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:23 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/22 12:34:18 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:44:44 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,45 @@
 // }
 // atexit(ft_leaks);
 
-void	free_list(t_stack **stack)
+void	sort_push_a(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*aux;
-
-	while (*stack)
-	{
-		aux = (*stack)->next;
-		free(*stack);
-		*stack = aux;
-	}
-	free(stack);
-}
-
-void	stack_move_node_a(t_stack **stack_a, t_stack **stack_b)
-{
-	t_stack	*stack_min;
-
-	stack_set_target_a(*stack_a, *stack_b);
-	stack_set_push_cost(*stack_a, *stack_b);
-	stack_set_min_cost(*stack_a);
-	stack_min = stack_min_cost(*stack_a);
-	if (stack_min->median && stack_min->target->median)
-		while (*stack_a != stack_min && *stack_b != stack_min->target)
-			rotate(stack_a, stack_b, MOVERR);
-	else if (!stack_min->median && !stack_min->target->median)
-		while (*stack_a != stack_min && *stack_b != stack_min->target)
-			reverse_rotate(stack_a, stack_b, MOVERRR);
-	if (stack_min->median)
-		while (*stack_a != stack_min)
-			rotate(stack_a, stack_b, MOVERA);
-	else
-		while (*stack_a != stack_min)
-			reverse_rotate(stack_a, stack_b, MOVERRA);
-	if (stack_min->target->median)
-		while (*stack_b != stack_min->target)
-			rotate(stack_a, stack_b, MOVERB);
-	else
-		while (*stack_b != stack_min->target)
-			reverse_rotate(stack_a, stack_b, MOVERRB);
-	push(stack_a, stack_b, MOVEPB);
-}
-
-void	stack_move_node_b(t_stack **stack_a, t_stack **stack_b)
-{
+	int		proxy_a;
+	int		len_stack_b;
 	t_stack	*target_b;
 
-	if (!stack_b)
-		return ;
-	stack_set_target_b(*stack_a, *stack_b);
-	stack_set_push_cost(*stack_b, *stack_a);
-	stack_set_min_cost(*stack_b);
-	target_b = *stack_b;
-	if (target_b->median && target_b->target->median)
-		while (*stack_a != target_b->target && *stack_b != target_b)
-			rotate(stack_a, stack_b, MOVERR);
-	else if (!target_b->median && !target_b->target->median)
-		while (*stack_a != target_b->target && *stack_b != target_b)
-			reverse_rotate(stack_a, stack_b, MOVERRR);
-	if (target_b->target->median)
-		while (*stack_a != target_b->target)
-			rotate(stack_a, stack_b, MOVERA);
-	else
-		while (*stack_a != target_b->target)
-			reverse_rotate(stack_a, stack_b, MOVERRA);
-	push(stack_a, stack_b, MOVEPA);
+	len_stack_b = stack_len(*stack_b);
+	while (len_stack_b > 0)
+	{
+		stack_above_half(*stack_a);
+		stack_above_half(*stack_b);
+		target_b = stack_set_target_b(*stack_b, *stack_a);
+		proxy_a = stack_len(*stack_a) / 2;
+		while (*stack_a != target_b)
+		{
+			if (target_b->median)
+				rotate(stack_a, stack_b, MOVERA);
+			else
+				reverse_rotate(stack_a, stack_b, MOVERRA);
+		}
+		push(stack_a, stack_b, MOVEPA);
+		len_stack_b--;
+	}
+}
+
+void	sort_push_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*min_cost;
+	int		len_stack_a;
+
+	len_stack_a = stack_len(*stack_a);
+	while (len_stack_a-- > 3 && !sorted_stack(*stack_a))
+	{
+		stack_above_half(*stack_a);
+		stack_above_half(*stack_b);
+		min_cost = stack_set_min_cost(stack_a, stack_b);
+		stack_set_top_node(stack_a, stack_b, min_cost);
+		push(stack_a, stack_b, MOVEPB);
+	}
 }
 
 int	main(int ac, char *av[])
