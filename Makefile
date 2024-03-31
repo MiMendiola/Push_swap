@@ -1,4 +1,5 @@
 NAME = push_swap
+BONUS = checker
 
 # COLORS
 RED		=	\033[91;1m
@@ -16,17 +17,29 @@ SRCS = $(addprefix ./src/, push_swap.c \
 		stack/stack_creator.c stack/stack_properties.c stack/stack_sort.c stack/stack_utils.c stack/stack_setters.c \
 		shows.c)
 
+SRCS_BONUS = $(addprefix ./src/, checker.c \
+		movements/push.c movements/reverse_rotate.c movements/rotate.c movements/swap.c \
+		stack/stack_creator.c stack/stack_utils.c \
+		shows.c)
+
 OBJS = $(SRCS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
 
-bonus : $(NAME_BONUS)
+bonus : $(BONUS)
 
 $(NAME) : $(OBJS)
 	@make all -sC ./libft
 	@echo "$(GREEN)Compiling Libft.$(CLEAR)"
 	@$(CC) $(CFLAGS) $(OBJS) -I ../push_swap.h $(LIBFTA) -o $(NAME)
 	@echo "$(GREEN)Push Swap Compiled.$(CLEAR)"
+
+$(BONUS) : $(OBJS_BONUS)
+	@make all -sC ./libft
+	@echo "$(GREEN)Compiling Libft.$(CLEAR)"
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -I ../push_swap.h $(LIBFTA) -o $(BONUS)
+	@echo "$(GREEN)Checker Compiled.$(CLEAR)"
 
 clean:
 	@$(RM) $(OBJS)

@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	push_move(t_stack **stack, t_stack **node)
+void	push_node(t_stack **stack, t_stack **node)
 {
 	t_stack	*aux;
 
@@ -38,12 +38,12 @@ void	push(t_stack **stack_a, t_stack **stack_b, int move)
 {
 	if (move == MOVEPA)
 	{
-		push_move(stack_a, stack_b);
+		push_node(stack_a, stack_b);
 		ft_putstr(PA);
 	}
 	else if (move == MOVEPB)
 	{
-		push_move(stack_b, stack_a);
+		push_node(stack_b, stack_a);
 		ft_putstr(PB);
 	}
 }

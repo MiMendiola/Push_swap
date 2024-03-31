@@ -20,7 +20,6 @@
 
 void	sort_push_a(t_stack **stack_a, t_stack **stack_b)
 {
-	int		proxy_a;
 	int		len_stack_b;
 	t_stack	*target_b;
 
@@ -30,7 +29,6 @@ void	sort_push_a(t_stack **stack_a, t_stack **stack_b)
 		stack_above_half(*stack_a);
 		stack_above_half(*stack_b);
 		target_b = stack_set_target_b(*stack_b, *stack_a);
-		proxy_a = stack_len(*stack_a) / 2;
 		while (*stack_a != target_b)
 		{
 			if (target_b->median)
