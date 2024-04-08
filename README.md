@@ -2,10 +2,10 @@
 
 <div>
 
-  ![Project](https://img.shields.io/badge/Project-So_Long-blue)
+  ![Project](https://img.shields.io/badge/Project-Push_swap-blue)
   ![Licence](https://img.shields.io/badge/Licence-MIT-orange)
   ![Version](https://img.shields.io/badge/Version-1.0-green)
-  <a href="https://github.com/MiMendiola/So_long/tree/main/Documentation/es/README.es.md" >
+  <a href="https://github.com/MiMendiola/Push_swap/tree/main/Documentation/es/README.es.md" >
     <img src="https://img.shields.io/badge/Cambiar_Idioma-Español-purple" align="right">
   </a>
 
