@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:51:43 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/23 15:51:52 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:05:14 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	reverse_rotate_node(t_stack **stack)
 	t_stack	*last;
 	t_stack	*prev_last;
 
+	if (!(*stack) || !(*stack)->next)
+		return ;
 	prev_last = last_node(*stack)->prev;
 	last = last_node(*stack);
 	if (*stack)

@@ -6,29 +6,18 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:44:08 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 14:38:41 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:43:43 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-int	sorted_stack(t_stack *stack)
-{
-	while (stack && stack->next)
-	{
-		if (stack->num > stack->next->num)
-			return (0);
-		stack = stack->next;
-	}
-	return (1);
-}
 
 void	sort_stack_three(t_stack **stack)
 {
 	t_stack	*max;
 
 	max = stack_max(*stack);
-	if (!sorted_stack(*stack))
+	if (!stack_sorted(*stack))
 	{
 		if (*stack == max)
 		{
@@ -48,14 +37,52 @@ void	sort_stack_three(t_stack **stack)
 	}
 }
 
+void	sort_push_b(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*min_cost;
+	int		len_stack_a;
+
+	len_stack_a = stack_len(*stack_a);
+	while (len_stack_a-- > 3 && !stack_sorted(*stack_a))
+	{
+		stack_above_half(*stack_a);
+		stack_above_half(*stack_b);
+		min_cost = stack_set_min_cost(stack_a, stack_b);
+		stack_set_top_node(stack_a, stack_b, min_cost);
+		push(stack_a, stack_b, MOVEPB);
+	}
+}
+
+void	sort_push_a(t_stack **stack_a, t_stack **stack_b)
+{
+	int		len_stack_b;
+	t_stack	*target_b;
+
+	len_stack_b = stack_len(*stack_b);
+	while (len_stack_b-- > 0)
+	{
+		stack_above_half(*stack_a);
+		stack_above_half(*stack_b);
+		target_b = stack_set_target_b(*stack_b, *stack_a);
+		while (*stack_a != target_b)
+		{
+			if (target_b->median)
+				rotate(stack_a, stack_b, MOVERA);
+			else
+				reverse_rotate(stack_a, stack_b, MOVERRA);
+		}
+		push(stack_a, stack_b, MOVEPA);
+	}
+}
+
 void	sort_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	len_stack_a;
 
 	len_stack_a = stack_len(*stack_a);
-	if (len_stack_a-- > 3 && !sorted_stack(*stack_a))
+	if (len_stack_a-- > 3 && !stack_sorted(*stack_a))
 		push(stack_a, stack_b, MOVEPB);
-	if (len_stack_a-- > 3 && !sorted_stack(*stack_a))
+	if (len_stack_a-- > 3 && !stack_sorted(*stack_a))
 		push(stack_a, stack_b, MOVEPB);
 	sort_push_b(stack_a, stack_b);
 	sort_stack_three(stack_a);

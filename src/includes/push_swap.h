@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:28:18 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 15:45:14 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:50:34 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ struct					s_stack
 	t_stack				*next;
 };
 
-void					sort_push_b(t_stack **stack_a, t_stack **stack_b);
-void					sort_push_a(t_stack **stack_a, t_stack **stack_b);
+void					show_lst(t_stack **stack);
 
 /* =============== PUSH FUNTIONS =============== */
 void					push(t_stack **stack_a, t_stack **stack_b, int move);
@@ -65,6 +64,7 @@ void					stack_creator(char *av[], t_stack **stack_a);
 t_stack					*stack_max(t_stack *stack);
 t_stack					*stack_min(t_stack *stack);
 int						stack_len(t_stack *stack);
+int						stack_sorted(t_stack *stack);
 void					stack_above_half(t_stack *stack);
 
 /* =============== SETTERS STACK =============== */
@@ -78,8 +78,9 @@ void					stack_set_top_node(t_stack **stack_a, t_stack **stack_b,
 							t_stack *min_cost);
 
 /* ================= SORT STACK ================ */
-int						sorted_stack(t_stack *stack);
 void					sort_stack_three(t_stack **stack);
+void					sort_push_b(t_stack **stack_a, t_stack **stack_b);
+void					sort_push_a(t_stack **stack_a, t_stack **stack_b);
 void					sort_stack(t_stack **stack_a, t_stack **stack_b);
 void					sort_end(t_stack **stack_a, t_stack **stack_b);
 
@@ -91,7 +92,5 @@ void					add_node_back(t_stack **stack, t_stack *new);
 long					ft_atol_ps(char *str);
 
 /* =============== SHOW FUNTIONS =============== */
-void					show_lst(t_stack **stack);
-void					show_error(void);
 
 #endif

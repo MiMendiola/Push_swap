@@ -66,13 +66,13 @@ void	stack_set_push_cost(t_stack *stack_a, t_stack *stack_b, t_stack *node_a,
 		*count += less_half;
 }
 
-void	stack_set_target_a(t_stack *main_stack, t_stack *b)
+void	stack_set_target_a(t_stack *main_stack, t_stack *stack_b)
 {
 	t_stack	*target_stack;
 	long	target_num;
 
 	target_num = LONG_MIN;
-	target_stack = b;
+	target_stack = stack_b;
 	while (target_stack)
 	{
 		if (target_stack->num < main_stack->num
@@ -84,7 +84,7 @@ void	stack_set_target_a(t_stack *main_stack, t_stack *b)
 		target_stack = target_stack->next;
 	}
 	if (target_num == LONG_MIN)
-		main_stack->target = stack_max(b);
+		main_stack->target = stack_max(stack_b);
 }
 
 t_stack	*stack_set_target_b(t_stack *node, t_stack *stack_a)

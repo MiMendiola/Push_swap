@@ -6,21 +6,22 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 16:23:15 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 21:26:12 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:50:10 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/push_swap.h"
+#include "../includes/push_swap.h"
 
-int	sorted(t_stack *stack)
+// void	ft_leaks(void)
+// {
+// 	system("leaks -q checker");
+// }
+// atexit(ft_leaks);
+
+void	show_error(void)
 {
-	while (stack && stack->next)
-	{
-		if (stack->num > stack->next->num)
-			return (0);
-		stack = stack->next;
-	}
-	return (1);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }
 
 void	execute_rotates(t_stack **stack_a, t_stack **stack_b, char *move)
@@ -71,7 +72,9 @@ int	main(int ac, char *av[])
 
 	stack_a = ft_calloc(1, sizeof(t_stack *));
 	stack_b = ft_calloc(1, sizeof(t_stack *));
-	if (ac > 1)
+	if (ac <= 1 || av[1][0] == '\0')
+		show_error();
+	if (ac != 2)
 	{
 		stack_creator(av, stack_a);
 		move = get_next_line(0);
@@ -81,13 +84,11 @@ int	main(int ac, char *av[])
 			free(move);
 			move = get_next_line(0);
 		}
-		if (sorted(*stack_a))
-			ft_printf("OK\n");
-		else
-			ft_printf("KO\n");
-		free_list(stack_a);
-		free_list(stack_b);
 	}
+	if (stack_sorted(*stack_a))
+		ft_printf("OK\n");
 	else
-		show_error();
+		ft_printf("KO\n");
+	free_list(stack_a);
+	free_list(stack_b);
 }

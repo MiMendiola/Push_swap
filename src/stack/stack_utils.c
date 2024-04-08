@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:26:24 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 15:16:55 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:31:20 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ long	ft_atol_ps(char *str)
 			sign *= -1;
 	}
 	if (!ft_isdigit(str[i]))
-		show_error();
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 	while (ft_isdigit(str[i]))
 		n = (str[i++] - '0') + (n * 10);
 	if (!ft_isdigit(str[i]) && str[i])
-		show_error();
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 	n *= sign;
 	if (n > INT_MAX || n < INT_MIN)
-		show_error();
+		ft_putstr_fd("Error\n", STDERR_FILENO);
 	return (n);
 }

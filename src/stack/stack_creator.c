@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:42:17 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 15:14:50 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:32:31 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	stack_duplicate_arg(t_stack *stack)
 		while (next_num != NULL)
 		{
 			if (stack->num == next_num->num)
-				show_error();
+			{
+				ft_putstr_fd("Error\n", STDERR_FILENO);
+				exit(EXIT_SUCCESS);
+			}
 			next_num = next_num->next;
 		}
 		stack = stack->next;
@@ -40,7 +43,7 @@ void	stack_add_node(t_stack **stack, char **nums, int *index)
 	{
 		num = ft_atol_ps(nums[0]);
 		if (num == (long)INT_MAX + 1)
-			show_error();
+			ft_putstr_fd("Error\n", STDERR_FILENO);
 		node = new_node((*index)++, num);
 		add_node_back(stack, node);
 	}
@@ -51,7 +54,7 @@ void	stack_add_node(t_stack **stack, char **nums, int *index)
 		{
 			num = ft_atol_ps(nums[j++]);
 			if (num == (long)INT_MAX + 1)
-				show_error();
+				ft_putstr_fd("Error\n", STDERR_FILENO);
 			node = new_node((*index)++, num);
 			add_node_back(stack, node);
 		}
@@ -76,6 +79,6 @@ void	stack_creator(char *av[], t_stack **stack_a)
 			free_matrix(numbers);
 		}
 		else
-			show_error();
+			ft_putstr_fd("Error\n", STDERR_FILENO);
 	}
 }

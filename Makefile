@@ -14,13 +14,11 @@ LIBFTA = libft/libft.a
 
 SRCS = $(addprefix ./src/, push_swap.c \
 		movements/push.c movements/reverse_rotate.c movements/rotate.c movements/swap.c \
-		stack/stack_creator.c stack/stack_properties.c stack/stack_sort.c stack/stack_utils.c stack/stack_setters.c \
-		shows.c)
+		stack/stack_creator.c stack/stack_properties.c stack/stack_sort.c stack/stack_utils.c stack/stack_setters.c)
 
-SRCS_BONUS = $(addprefix ./src/, checker.c \
+SRCS_BONUS = $(addprefix ./src/, bonus/checker.c \
 		movements/push.c movements/reverse_rotate.c movements/rotate.c movements/swap.c \
-		stack/stack_creator.c stack/stack_utils.c \
-		shows.c)
+		stack/stack_creator.c stack/stack_properties.c stack/stack_utils.c)
 
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
@@ -49,6 +47,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) $(BONUS)
 	@$(RM) $(LIBFTA)
 	@echo "$(RED)Everything Deleted.$(CLEAR)"
 

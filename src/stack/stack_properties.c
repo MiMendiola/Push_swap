@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:46:58 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/30 14:45:05 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:27:43 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ int	stack_len(t_stack *stack)
 		stack = stack->next;
 	}
 	return (counter);
+}
+
+int	stack_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->num > stack->next->num)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }
 
 void	stack_above_half(t_stack *stack)

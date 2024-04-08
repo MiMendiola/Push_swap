@@ -6,7 +6,7 @@
 /*   By: mmendiol <mmendiol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 17:14:40 by mmendiol          #+#    #+#             */
-/*   Updated: 2024/03/25 17:40:15 by mmendiol         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:06:28 by mmendiol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	push_node(t_stack **stack, t_stack **node)
 {
 	t_stack	*aux;
 
+	if (!stack || !(*node))
+		return ;
 	aux = *node;
 	*node = (*node)->next;
 	if (!(*stack))
