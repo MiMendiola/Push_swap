@@ -15,7 +15,7 @@ El proyecto `Push_swap` se basa en ordenar una `pila de numeros` con una pila A 
 
 El proceso comienza verificando la validez de la secuencia numérica, que se almacena en la pila A. Para secuencias desordenadas de `dos elementos`, se emplea un simple intercambio con `SA` para ordenarlos. Con `tres elementos`, se utiliza una función específica de ordenación. Para secuencias mayores, se adopta un algoritmo más complejo adecuado para volúmenes más grandes de datos.
 
-El **`Algoritmo Turko`** consiste en ir organizando los numeros mediante un `análisis del rendimiento` asociado a cada movimiento al mismo tiempo.  Inicialmente, moveremos los dos primeros números a la pila B, sin distinción de su valor. Posteriormente, se iran moviendo elementos selectivamente, manteniendo solamente `tres números en la pila A`. Iremos asignando un índice a cada nodo, para determinar la operación más eficiente que debamos emplear.
+El **`Algoritmo Turco`** consiste en ir organizando los numeros mediante un `análisis del rendimiento` asociado a cada movimiento al mismo tiempo.  Inicialmente, moveremos los dos primeros números a la pila B, sin distinción de su valor. Posteriormente, se iran moviendo elementos selectivamente, manteniendo solamente `tres números en la pila A`. Iremos asignando un índice a cada nodo, para determinar la operación más eficiente que debamos emplear.
 
 Dicha selección de elementos para mover a la pila B se basa en los que resulten con `menor coste de movimientos`, dando prioridad al `número más grande` que se encuentre `más próximo` en la pila A. Se realizarán las rotaciones necesarias para `colocar estos elementos en la parte superior de la pila`, para luego trasladarlos a la pila B.
 
