@@ -42,7 +42,7 @@ Para una `explicación detallada` de cada parte del proyecto, incluyendo cómo f
 
 Consultar algoritmos para tener claro cual deseas realizar, y busca la eficiencia de cada uno.
 
-Tener claro hasta que punto quieres llegar en el proyecto, si quieres conseguir la maxima nota te recomiendo que leas Algoritmo Turko.
+Tener claro hasta que punto quieres llegar en el proyecto, si quieres conseguir la maxima nota te recomiendo que leas Algoritmo Turco.
 
 La validación de los argumentos es una prioridad para el éxito del proyecto.
 
